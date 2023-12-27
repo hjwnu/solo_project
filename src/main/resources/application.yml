@@ -1,0 +1,34 @@
+spring:
+  mvc:
+    path_match:
+      matching-strategy: ant_path_matcher
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        highlight_sql: true
+        format_sql: true
+        show_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+    open-in-view: false
+  datasource:
+    hikari:
+      maximum-pool-size: 30
+    url: ${mysql_url}
+    username: ${mysql_master}
+    password: ${mysql_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  logging:
+    level:
+      org:
+        springframework:
+         orm:
+             jpa: DEBUG
+      server: # ?? response ? ?? ??? ??? ??(?? ?? ??)
+        servlet:
+          encoding:
+            force-response: true
