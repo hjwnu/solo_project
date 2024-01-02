@@ -1,9 +1,8 @@
 package project2.HRService.domain.organization.employee.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 public class RoleDto {
     @Getter
@@ -23,10 +22,12 @@ public class RoleDto {
     }
     @Getter@Setter
     @AllArgsConstructor
-    @RequiredArgsConstructor
+    @RequiredArgsConstructor @Builder
     public static class ResponseDto {
         String name;
         int rank;
+        List<String> Departments;
+        List<String> Employees;
     }
 }
 

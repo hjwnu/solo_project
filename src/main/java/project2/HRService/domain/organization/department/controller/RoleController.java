@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project2.HRService.domain.organization.employee.entity.Role;
-import project2.HRService.domain.organization.employee.service.CRUD.RoleService;
+import project2.HRService.domain.organization.employee.service.layer2.RoleService;
 import project2.HRService.global.response.SingleResponseDto;
 
 @RestController
