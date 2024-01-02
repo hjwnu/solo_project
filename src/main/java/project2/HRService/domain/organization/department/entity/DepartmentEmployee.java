@@ -28,5 +28,17 @@ public class DepartmentEmployee extends BaseEntity{
     @JoinColumn(name = "role_id")
     private Role role;
 
+    public DepartmentEmployee setRelation(Employee employee, Department department){
+        this.department = department;
+        this.employee = employee;
+        return this;
+    }
+
+    public DepartmentEmployee setRelation(Employee employee, Department department, Role role){
+        this.department = department;
+        this.employee = employee;
+        this.role = role;
+        return this;
+    }
 }
 

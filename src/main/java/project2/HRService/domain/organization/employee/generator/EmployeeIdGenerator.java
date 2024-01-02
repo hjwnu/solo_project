@@ -1,4 +1,4 @@
-package project2.HRService.global.generator;
+package project2.HRService.domain.organization.employee.generator;
 
 import jakarta.persistence.EntityManager;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

@@ -1,21 +1,18 @@
-package project2.HRService.domain.organization.employee.service.facade;
+package project2.HRService.domain.organization.employee.service.layer1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.HRService.domain.organization.department.entity.Department;
 import project2.HRService.domain.organization.department.entity.DepartmentEmployee;
-import project2.HRService.domain.organization.department.service.CRUD.DepartmentCrudService;
-import project2.HRService.domain.organization.department.service.CRUD.DepartmentEmployeeService;
+import project2.HRService.domain.organization.department.service.layer2.DepartmentCrudService;
+import project2.HRService.domain.organization.department.service.layer2.DepartmentEmployeeService;
 import project2.HRService.domain.organization.employee.dto.EmployeeDto;
 import project2.HRService.domain.organization.employee.entity.Employee;
 import project2.HRService.domain.organization.employee.entity.Role;
 import project2.HRService.domain.organization.employee.mapper.EmployeeMapper;
-import project2.HRService.domain.organization.employee.service.CRUD.EmployeeCrudService;
-import project2.HRService.domain.organization.employee.service.CRUD.RoleService;
-
-import java.util.ArrayList;
-import java.util.List;
+import project2.HRService.domain.organization.employee.service.layer2.EmployeeCrudService;
+import project2.HRService.domain.organization.employee.service.layer2.RoleService;
 
 @Service @Slf4j
 public class EmployeeService {
@@ -35,12 +32,7 @@ public class EmployeeService {
 
     @Transactional
     public EmployeeDto.ResponseDto createEmployee(EmployeeDto.PostDto postDto) {
-        // 부서 및 역할 조회
-        Employee employee = createAndSaveEmployee(postDto);
-        return mapper.entityToResponseDto(employee);
-    }
-
-    private Employee createAndSaveEmployee(EmployeeDto.PostDto postDto) {
+        // 부서 조회
         Department department = departmentCrudService.findByName(postDto.getDepartment());
         Role role = roleService.findByName(postDto.getRole());
 
@@ -48,23 +40,18 @@ public class EmployeeService {
         Employee employee = mapper.postDtoToEntity(postDto);
 
         // DepartmentEmployee 관계 설정 및 저장
-        DepartmentEmployee departmentEmployee =
-                departmentEmployeeService.setRelation(new DepartmentEmployee(), employee, department, role);
+        DepartmentEmployee departmentEmployee = linkDepartmentAndEmployee(department, employee, role);
 
-        linkDepartmentAndEmployee(department, employee, departmentEmployee);
-
-        departmentCrudService.save(department); // 부서에 직원 추가
-        crudService.save(employee); // 직원 저장
+         employee = crudService.save(employee); // 직원 저장
         departmentEmployeeService.save(departmentEmployee); // 부서-직원 관계 저장
-
-        return employee;
+        return mapper.entityToResponseDto(employee);
     }
 
-    private void linkDepartmentAndEmployee(Department department, Employee employee, DepartmentEmployee departmentEmployee) {
-        List<DepartmentEmployee> list = new ArrayList<>();
-        list.add(departmentEmployee);
-        employee.setDepartmentEmployees(list);
 
-        department.setDepartmentEmployees(list);
+    private DepartmentEmployee linkDepartmentAndEmployee(Department department, Employee employee, Role role) {
+        DepartmentEmployee departmentEmployee =  new DepartmentEmployee().setRelation(employee, department, role);
+        employee.addDepartmentEmployee(departmentEmployee);
+        department.addDepartmentEmployee(departmentEmployee);
+        return departmentEmployee;
     }
 }

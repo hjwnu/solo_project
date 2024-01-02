@@ -1,4 +1,4 @@
-package project2.HRService.domain.organization.employee.service.CRUD;
+package project2.HRService.domain.organization.employee.service.layer2;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -14,6 +14,7 @@ import project2.HRService.global.generic.GenericMapper;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class EmployeeCrudService extends GenericCrudService.GenericCrud<Employee, EmployeeDto.PostDto, EmployeeDto.ResponseDto, EmployeeDto.PatchDto, Long > {
@@ -38,7 +39,7 @@ public class EmployeeCrudService extends GenericCrudService.GenericCrud<Employee
             EmployeeDto.PostDto,
             EmployeeDto.ResponseDto, EmployeeDto.PatchDto, Long > getMapper() {  return mapper; }
 
-    public synchronized Long generate() {
+    public synchronized Long generateId() {
         ZonedDateTime thisMonth = ZonedDateTime.now();
         String datePart = thisMonth.format(DateTimeFormatter.ofPattern("yyMM"));
         int countToday = getCountOfEmployeesJoinedToday(thisMonth, entityManager);
@@ -60,4 +61,13 @@ public class EmployeeCrudService extends GenericCrudService.GenericCrud<Employee
         return count.intValue();
     }
 
+    @Override
+    public Employee findByName(String str) {
+        return null;
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return null;
+    }
 }

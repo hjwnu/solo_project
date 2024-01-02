@@ -3,7 +3,7 @@ package project2.HRService.domain.organization.department.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import project2.HRService.domain.organization.department.service.CRUD.DepartmentCrudService;
+import project2.HRService.domain.organization.department.service.layer2.DepartmentCrudService;
 
 @RestController
 @RequiredArgsConstructor

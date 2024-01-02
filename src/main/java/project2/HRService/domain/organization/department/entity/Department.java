@@ -38,5 +38,13 @@ public class Department extends BaseEntity {
     public enum Status {
         ACTIVE, INACTIVE
     }
+
+    public void addDepartmentEmployee(DepartmentEmployee departmentEmployee) {
+        this.departmentEmployees.add(departmentEmployee);
+    }
+
+    public void addRoles(DepartmentRole role) {
+        this.departmentRoles.add(role);
+    }
 }
 

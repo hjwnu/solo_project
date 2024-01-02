@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project2.HRService.domain.organization.employee.dto.EmployeeDto;
-import project2.HRService.domain.organization.employee.service.facade.EmployeeService;
+import project2.HRService.domain.organization.employee.service.layer1.EmployeeService;
 import project2.HRService.global.response.SingleResponseDto;
 
 @RestController
